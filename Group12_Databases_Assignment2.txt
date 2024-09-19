@@ -1,4 +1,4 @@
-MySQL Code:
+#MySQL Code:
 
 
 CREATE DATABASE CASEBicycles;
@@ -51,14 +51,14 @@ CREATE TABLE Seller (
 CREATE TABLE Transaction (
     transactionID INT AUTO_INCREMENT PRIMARY KEY,
     transactionDate DATE,
-    totalPrice FLOAT(10),
+    totalPrice FLOAT(10)
 );
 
 CREATE TABLE Transaction_Purchase (
     transactionID INT PRIMARY KEY,
     transactionDate DATE,
     purchaseClientID INT,
-    FOREIGN KEY (purchaseClientID) REFERENCES Seller(sellerID)
+    FOREIGN KEY (purchaseClientID) REFERENCES Seller(sellerID),
     FOREIGN KEY (transactionID) REFERENCES Transaction(transactionID)
 );
 
@@ -67,7 +67,7 @@ CREATE TABLE Transaction_Sale (
     transactionDate DATE,
     saleClientID INT,
     saleType ENUM('Online', 'InStore') NOT NULL,
-    FOREIGN KEY (saleClientID) REFERENCES Buyer(buyerID)
+    FOREIGN KEY (saleClientID) REFERENCES Buyer(buyerID),
     FOREIGN KEY (transactionID) REFERENCES Transaction(transactionID)
 );
 
@@ -96,10 +96,11 @@ CREATE TABLE Inventory (
     inventoryID INT AUTO_INCREMENT PRIMARY KEY,
     productID INT NOT NULL,
     quantity INT NOT NULL,
-    FOREIGN KEY (productID)
+    FOREIGN KEY (productID) REFERENCES Product(productID)
 );
 
 
+/*
 Explanation of the code:
 
 This MySQL code was developed in collaboration with all of the group members, those being: Emil Moryakov, Alvin Yadav, Sashwat Sharma, and Rashad Rahimzade. The layout of our database follows the ER diagram that was submitted by our group last week. The clarification of our approach is as follows:
@@ -113,5 +114,5 @@ This MySQL code was developed in collaboration with all of the group members, th
 - The LineItem Table will be used to record how many of each product is sold to a customer, and will reference the previously established transactionID and productid for these purposes. 
 
 - The Inventory Table will be used to modify and record the stock of products that exist within the database, using productID as the foreign key for this use. 
-
+*/
 
